@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const STORE_FRONT_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:3000'
-    : 'https://tu-tienda-front.vercel.app'; // TODO: Reemplazar por la URL real de tu tienda (MatiVicFront) en producción
+    : 'https://mat-vic-front-alpha.vercel.app';
 
   // Elementos del DOM - Detalles
   const amountEl = document.getElementById('amount-value');
