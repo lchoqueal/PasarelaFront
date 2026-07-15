@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:4000/api/payments'
-    : 'https://tu-pasarela-back.onrender.com/api/payments'; // TODO: Reemplazar por tu URL real de Render
+    : 'https://pasarelaback-m164.onrender.com/api/payments';
 
   const STORE_FRONT_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:3000'
