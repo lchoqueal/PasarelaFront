@@ -2,7 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get('token');
 
-  const API_BASE = 'http://localhost:4000/api/payments';
+  const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:4000/api/payments'
+    : 'https://tu-pasarela-back.onrender.com/api/payments'; // TODO: Reemplazar por tu URL real de Render
+
+  const STORE_FRONT_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:3000'
+    : 'https://tu-tienda-front.vercel.app'; // TODO: Reemplazar por la URL real de tu tienda (MatiVicFront) en producción
 
   // Elementos del DOM - Detalles
   const amountEl = document.getElementById('amount-value');
@@ -108,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       // Fallback
       alert('Pago cancelado. Redirigiendo a la tienda...');
-      window.location.href = 'http://localhost:3000'; // Puerto default de MatiVic
+      window.location.href = STORE_FRONT_URL;
     }
   });
 
@@ -214,7 +220,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('error-reason-text').textContent = msg;
     document.querySelector('.auto-redirect-info').style.display = 'none';
     btnErrorRedirect.textContent = 'Salir';
-    btnErrorRedirect.onclick = () => window.location.href = 'http://localhost:3000';
+    btnErrorRedirect.onclick = () => {
+      if (paymentSession && paymentSession.failureUrl) {
+        window.location.href = paymentSession.failureUrl;
+      } else {
+        window.location.href = STORE_FRONT_URL;
+      }
+    };
   }
 
   function updateSteps(activeStepNum) {
